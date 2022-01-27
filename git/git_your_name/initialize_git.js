@@ -22,3 +22,13 @@
 // $ cd <your directory you want to initialize git in>
 // $ git init
 // Follow the steps in 1) for this directory and see if .git exists in this directory
+
+// Note: When using git init, there might be a message like "Using 'master' as the name for the initial branch... etc" 
+// This is refering to a farely recent change to git and GitHub where they are moving
+// away from the word "master" and preferring to use the word "main" instead
+// You can ignore the message if you wish, because it won't make a difference to your code
+// However, if you want to follow along with current practices, just do the given command:
+// $ git branch -m <name>
+// <name> to be replaced with anything, but preferably "main" like this:
+// $ git branch -m main
+// This will just change the default branch name to "main" instead of "master" in your local repository
