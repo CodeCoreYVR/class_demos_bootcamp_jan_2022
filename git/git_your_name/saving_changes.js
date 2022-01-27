@@ -15,3 +15,10 @@
 //To do so, you must first add changed to the staging area, like above, then
 // $ git commit -m "Good commit message to explain what your change was for"
 
+//To see history of your commits
+// $ git log
+//To see all code
+// $ git log -p
+//To see a shortened version of all code with commits
+// $ git log -p --oneline
+
