@@ -38,6 +38,10 @@ counter1.inc()
 // console.log(counter2.now())
 
 console.log(counter1.inc().inc().dec().now())
+//this will get undefined
+//if we want chained behaviour, we have to make sure that
+//the methids what we're calling are returning 'this'
+//because 'this' represents the object that owns the method
 
 // Create multiple counter objects:
 const c3 = new Counter();
@@ -50,4 +54,6 @@ console.log(c4)
 console.log(c5)
 console.log(c6)
 console.log(c7)
-
+//Notice that every time you create a new instance of an object, it is recreating the function
+//This takes up additional space in memory, even though they all look exactly the same
+//That is why constructors have prototypes when you use the "new" keyword
