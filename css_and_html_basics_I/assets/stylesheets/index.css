@@ -1,0 +1,49 @@
+p {
+    background-color: red !important;
+}
+
+/* below is more specific than just a p tag */
+/* p#bye.hello {
+    background-color: green;
+} */
+
+#optionA {
+    background-color: cadetblue;
+}
+
+#footer {
+    background-color: lightgrey;
+}
+
+.my-code {
+    background-color: hotpink;
+}
+
+h1, h2, h3 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+label.optionB {
+    background-color: lawngreen;
+}
+
+ul > li {
+    background-color: lightpink;
+}
+
+a:visited {
+    color: hotpink;
+}
+
+a:hover {
+    color:black;
+}
+
+/* Select all child elements except for last */
+ul > *:not(:last-child){
+    font-size: 10px;
+}
+
+p {
+    background-color: bisque;
+}

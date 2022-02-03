@@ -23,10 +23,20 @@ type an exclamation "!" and then hit the tab key-->
             This gives the browser instructions on how to control the page's dimensions and scaling.
         -->
         <title>html and css day 1</title>
+        <style>
+            html {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            * {
+                font-family: inherit;
+            }
+        </style>
+        <link rel="stylesheet" type="text/css" href="assets/stylesheets/index.css">
     </head>
     <body>
         <header>
             <h1>Hello World</h1>
+            <img src="assets/images/cat.jpeg" alt="cat">
             <nav>
                 <a href="example.html">Example Page</a>
                 <a href="https://www.google.com">Google</a>
@@ -44,7 +54,7 @@ type an exclamation "!" and then hit the tab key-->
             <h6>My sixth (last) header</h6>
             <h7>Seven or other h tags do not exist - will default to text</h7>
             <p>This paragraph has a <strong>bold</strong> word in it.
-                <q>
+                <q style="background-color: aqua;">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
                     eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut 
                     enim ad minim veniam, quis nostrud exercitation ullamco laboris 
@@ -88,11 +98,11 @@ type an exclamation "!" and then hit the tab key-->
                 <p>Select any option to show that you are not a robot:</p>
                 <div>
                     <input type="radio" id="optionA" name="drone" value="optionA">
-                    <label for="optionA">optionA</label>
+                    <label for="optionA" id="optionA">optionA</label>
                 </div>
                 <div>
                     <input type="radio" id="optionB" name="drone" value="optionB">
-                    <label for="optionB">optionB</label>
+                    <label for="optionB" class="optionB" >optionB</label>
                 </div>
                 <div>
                     <input type="radio" id="optionC" name="drone" value="optionC">
@@ -101,9 +111,30 @@ type an exclamation "!" and then hit the tab key-->
                 <input type="submit" value="Submit">
             </form>
         </section>
+        <aside>
+            <h3 class="media-area">Media area</h3>
+            <img style="width: 300px; height: 300px;" src="https://images.unsplash.com/photo-1598133894008-61f7fdb8cc3a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=776&q=80" alt="dog"/>
+            <audio controls>
+                <source src="path_to_sound_file.mp3"/>
+            </audio>
+            <label for="file">File progress:</label>
+            <progress id="file" value="70" max="100">70%</progress>
+        </aside>
+        <section>
+            <h3>Block of code</h3>
+            <code class="my-code">
+                function Panel(element, canClose, closeHandler){
+                    this.element = element;
+                    this.canClose = canClose;
+                    this.closeHandler = function () if (closeHandler) closeHandler()};
+                }
+            </code>
+            <h3>Draw figures with canvas</h3>
+            <canvas width="320" height="240"></canvas>
+        </section>
         <footer>
             <hr/>
-            <h5>Footer: Copyright of CodeCore</h5>
+            <h5 id="footer">Footer: Copyright of CodeCore</h5>
         </footer>
     </body>
 </html>
