@@ -37,4 +37,51 @@ p {
     font-family: 'Roboto', sans-serif;
 }
 
+/*================= Flexbox CSS: ================================*/
+
+/* Grab the flex-container which is tyhe parent element */
+/* Any element with the property set to display:flex is considered a "Flex Container" */
+
+.flex-me {
+    display: flex;
+    /* flex-direction: row;   */
+    /* row is the default direction */
+    /* flex-direction: column; */
+    /* Flex-direction is used to set the flow/main-axis of the flex-items */
+    /* By default flex-direction is set to row (left-right) */
+    flex-wrap: wrap;
+    /* flex-flow: column wrap; */
+    /* justify-content: center; */
+    justify-content: flex-end;
+    /* Justify-content is used to align item within the main axis */
+    align-items: center;
+    /* Align-items is used to align item within the cross axis */
+
+    min-height: 150px;
+    background-color: darkgrey;
+    /* gap: 30px; */
+    column-gap: 40px;
+}
+
+
+#num-two {
+   /* an element can only be a flex-item if its parent is a flex container */
+   /* flex-items have their own properties as well: */
+   order: 1;
+   /* default is 0 and in order of placement in html document; can be negative number as well; 
+   the smaller the number, the higher the order priority */
+   flex-grow: 5; 
+   /* default is 1; cannot be negative number; grows relative to the size of the other items */
+   align-self: flex-end;
+   /* align-self also uses cross-axis */
+}
+
+.flex-me>div {
+    order: 0;
+    flex-grow: 1;
+}
+
+#num-six {
+    flex-grow: 4;
+}
 
