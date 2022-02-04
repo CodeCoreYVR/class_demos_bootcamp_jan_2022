@@ -1,4 +1,5 @@
 @import 'normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Roboto:wght@100&family=Source+Sans+Pro:wght@600&display=swap');
 
 * {
     border: thin dotted greenyellow;
@@ -16,6 +17,24 @@ input[type="textarea"] {
 
 .div-3 {
     float: right;
+}
+
+img {
+    width: 500px;
+    height: 400px;
+    float: right;
+}
+
+.container {
+    overflow: auto;
+}
+
+body {
+    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+}
+
+p {
+    font-family: 'Roboto', sans-serif;
 }
 
 
