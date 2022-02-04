@@ -25,6 +25,12 @@ img {
     float: right;
 }
 
+/* Responsive image */
+/* img {
+    max-width: 100%;
+    height: auto;
+} */
+
 .container {
     overflow: auto;
 }
@@ -71,7 +77,9 @@ p {
    /* default is 0 and in order of placement in html document; can be negative number as well; 
    the smaller the number, the higher the order priority */
    flex-grow: 5; 
-   /* default is 1; cannot be negative number; grows relative to the size of the other items */
+   /* default is 0; cannot be negative number; grows relative to the size of the other items */
+   /* flex-shrink: 3; will shrink the item content */
+   /* default is 1;
    align-self: flex-end;
    /* align-self also uses cross-axis */
 }
