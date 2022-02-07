@@ -1,0 +1,73 @@
+@import url(reset.css);
+
+
+header{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.logo{
+    width: 40px;
+}
+
+.cards-container {
+    border: 0.5rem solid lightblue;
+}
+.second-section{
+    border: 0.5rem solid lightpink;
+    font-size: 3rem;
+}
+.card{
+    font-size: 1.2rem;
+    padding: 1.5rem;
+}
+
+.card > p{
+    padding-bottom: 1rem;
+}
+
+footer{
+    padding: 1rem;
+    font-size: 1.5rem;
+}
+
+
+@media (min-width: 600px){
+
+    header{
+        align-items: center;
+    }
+
+    nav{
+        width: 80%;
+    }
+
+    nav > ul{
+        display: flex;
+        justify-content: space-around;
+    }
+    .cards-container{
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        border-color: lightyellow;
+        justify-content: center;
+    }
+    .card{
+        width: 50%;
+    }
+    .second-section{
+        font-size: 6rem;
+        border-color: lightgreen;
+    }
+    footer{
+        font-size: 5rem;
+        color: lightblue;
+    }
+}
+
+
+/* body => width 100px 
+
+header under body => width 80% => 80px */

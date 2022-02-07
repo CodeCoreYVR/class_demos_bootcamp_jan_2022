@@ -1,0 +1,39 @@
+.grid-container{
+    display: grid;
+    grid-template-areas: 
+    "nav header header"
+    "nav content content"
+    "nav sidebar sidebar"
+    "footer footer footer"
+    ;
+}
+
+
+.section{
+    padding: 1rem;
+    border: 1px black solid;
+    min-height: 50px;
+}
+
+nav{
+    background-color: skyblue;
+    grid-area: nav;
+}
+
+header{
+    background-color: yellow;
+    grid-area: header;
+}
+
+.content{
+    background-color: yellowgreen;
+    grid-area: content;
+}
+
+footer{
+    background-color: gray;
+    grid-area: footer;
+}
+.sidebar{
+    grid-area: sidebar;
+}
