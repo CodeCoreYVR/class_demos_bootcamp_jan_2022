@@ -28,6 +28,13 @@ const express = require('express');
 const res = require('express/lib/response');
 const app = express();
 
+//-------Logging Middleware------------->
+//install morgan in our npm project: npm i morgan
+//now require it:
+const logger = require('morgan');
+
+app.use(logger('dev'))
+
 //------Common methods for App (express app)----->
 // http://expressjs.com/en/4x/api.html#app.listen
 //require('express') returns a function that returns an instance of an express app
@@ -49,12 +56,56 @@ const app = express();
 //app.set() used to set application variables. Mainly used to configure application wide variables
 // like a patrh to VIew directory or path to static files
 
+//----------WELCOME PAGE----------->
+app.get('/', (request, response) => {
+    response.render('welcome', {
+        title: 'Welcome to Meme Page',
+        memes: [
+            "https://www.probytes.net/wp-content/uploads/2018/01/2.jpg",
+            "https://www.probytes.net/wp-content/uploads/2018/01/20.png",
+            "https://www.probytes.net/wp-content/uploads/2018/01/r_389776_tqMPa-1.jpg",
+            "https://www.loginradius.com/blog/async/static/ce430bf1882a235044353d4b4d098275/e85cb/12.png",
+            "https://res.cloudinary.com/practicaldev/image/fetch/s--MOKp0Jew--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://www.probytes.net/wp-content/uploads/2018/01/4-1.png" 
+        ]
+    })
+})
+
 //------------DEMO HELLO WORLD------>
 //first arg: path
 //second arg: request handler
 
+//------------SURVEY PAGE----------->
+app.get('/survey', (req, res) => {
+    res.render('survey')
+})
+
+//---Handle Submit of the Survey form------->
+app.get('/submit', (req, res) => {
+    // res.send('thank you')
+    const fullName = req.query.fullName;
+    const favouriteColour = req.query.favouriteColour;
+    const favouriteDay = req.query.favouriteDay;
+    res.render('thank_you', {
+        fullName: fullName,
+        favouriteColour: favouriteColour,
+        favouriteDay: favouriteDay
+    })
+
+})
+
+//--------SET ejs VIEW ENGINE-------->
+//first "npm i ejs" to add ejs as a dependency to the project
+//make sure you have the necessary extensions on VSCode
+
+//here we are telling express to render templates using ejs
+app.set('view engine', 'ejs')
+//Create a views directory to refer to all our views
+//let express know that should find the templates inside views folder
+app.set('views', 'views')
+
 app.get('/hello_world',(request, response)=>{
-    response.send("<h1>Hello World<h1>")
+    // response.send("<h1>Hello World<h1>")
+    response.render('hello_world')
 })
 
 
