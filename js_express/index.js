@@ -28,6 +28,26 @@ const express = require('express');
 const res = require('express/lib/response');
 const app = express();
 
+//-----------------STATIC ASSETS------------->
+//Static asset: require path that's already accessible through express
+//In turn we will use express.static through the path
+const path = require('path')
+
+//Use 'path.join' to combine string arguments into path
+//path.join('/', 'users', 'bob') -> '/users/bob'
+
+//The below line connects our public directory to express so that it can
+//serve the browser those images, css files, browser-side JS files, etc
+//Set up a public directory for these files to reside in
+//__dirname is a global variable provided by node that has the value of the path to your root directory
+app.use(express.static(path.join(__dirname, 'public')))
+
+//static asset middleware will take all the files and directories within /public
+//and serve them publically with their own url
+
+//For example:  http://localhost:3000/css/main.css or http://localhost:3000/images/thumbsUp.gif
+
+
 //-------Logging Middleware------------->
 //install morgan in our npm project: npm i morgan
 //now require it:
@@ -85,10 +105,12 @@ app.get('/submit', (req, res) => {
     const fullName = req.query.fullName;
     const favouriteColour = req.query.favouriteColour;
     const favouriteDay = req.query.favouriteDay;
+    const message = req.query.message
     res.render('thank_you', {
         fullName: fullName,
         favouriteColour: favouriteColour,
-        favouriteDay: favouriteDay
+        favouriteDay: favouriteDay,
+        message: message
     })
 
 })
