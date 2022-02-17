@@ -28,6 +28,64 @@ const express = require('express');
 const res = require('express/lib/response');
 const app = express();
 
+//--------------------BODY PARSER and URLENCODED MIDDLEWARE-------------------->
+//To be able to use data from a POST HTTP request, like filling out a form and submitting:
+//Previously we had to add body parser as an extra package but we don't need to install body parser anymore, 
+//because express has a new method called urlencoded that we'll use instead to parse in x-www-urlencoded format
+//Forms using POST actions send their data as x-www-urlencoded format
+//It looks like key=value separated by & and + where special characters are replaced 
+//This middleware will decode (parse out) the data that was submitted from the form
+//using  the "POST" HTTP Verb and change it into a format the our application can understand
+//such as JavaScript objects that will represent request.body
+
+//When "extended" option is "true", it allows the data to take the shape of arrays and objects
+//And puts all the info on req.body.  Without it, you will only get strings back 
+//the method has other options available as well that we don't need today
+app.use(express.urlencoded({extended: true}))
+//It will modify the request object given to routes by adding a property to it named body
+//So request.body will be an object containing the data from our form
+
+//----------------COOKIE PARSER-------------->
+// req.body.cookie
+//install: npm i --save cookie-parser
+//require cookie-parser:
+const cookieParser = require('cookie-parser')
+
+app.use(cookieParser());
+//will parse cookies and put them on request.cookies available as express properties (see express docs)
+//you can still require cookies without this, but in the backend it's hard for us to read
+//every time we make a request to the browser, in the header somewhere there's a cookie header that holds all the info for that cookie
+//cookie parser reads the headers for us and it will parse out the cookies
+//it will read it in whatever format it is, and turns it into a nice JS object for us
+
+//----------------CUSTOM MIDDLEWARE------------>
+//Remember, order matters! So make sure this is under the urlencoded and cookie-parser
+//because it will depend on it to work properly
+
+
+app.use((req, res, next) => {
+    const username = req.cookies.username
+
+    //properties set on res.locals become accessible in any views
+    //almost like a global variable
+    res.locals.username = "";
+
+    if(username){
+        res.locals.username = username;
+        console.log(`Signed in as ${username}`)
+    }
+    next();
+    // All middleware functions have an optional parameter **next()** 
+    //beside (request, response) parameters which is needed to pass along 
+    //the request to the next function in the chain just simply by calling it
+    //Packaged middleware might already have the next() implemented, so you might not need to specify it
+    //But always include it in your own middleware
+    //After the we are done with the middleware then we pass the request to next 
+    //middleware function but, if the middleware didn't run successfully then the 
+    //response will be given from the middleware
+})
+
+
 //-----------------STATIC ASSETS------------->
 //Static asset: require path that's already accessible through express
 //In turn we will use express.static through the path
@@ -40,6 +98,7 @@ const path = require('path')
 //serve the browser those images, css files, browser-side JS files, etc
 //Set up a public directory for these files to reside in
 //__dirname is a global variable provided by node that has the value of the path to your root directory
+//__dirname represents http://localhost:3000/ in our case
 app.use(express.static(path.join(__dirname, 'public')))
 
 //static asset middleware will take all the files and directories within /public
@@ -52,6 +111,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 //install morgan in our npm project: npm i morgan
 //now require it:
 const logger = require('morgan');
+const req = require('express/lib/request');
 
 app.use(logger('dev'))
 
@@ -75,6 +135,15 @@ app.use(logger('dev'))
 
 //app.set() used to set application variables. Mainly used to configure application wide variables
 // like a patrh to VIew directory or path to static files
+
+//-----------------------------HTTP VERBS---------------------------------->
+//GET -> to retreive info from our server (generalization)
+//POST -> req to either add or change to our server's data
+//PATCH -> Update data
+//DELETE -> Remove data
+
+
+//--------------------------ROUTERS------------------------------------------------>
 
 //----------WELCOME PAGE----------->
 app.get('/', (request, response) => {
@@ -130,7 +199,22 @@ app.get('/hello_world',(request, response)=>{
     response.render('hello_world')
 })
 
+//-------------Sign In POST request----------------->
+app.post('/sign_in', (req, res) => {
+    // res.send(req.body) //this is possible through urlencoded
+    const COOKIE_MAX_AGE = 1000 * 60 * 60 * 24; //a day in milliseconds
+    const username = req.body.username
+    res.cookie('username', username, {maxAge: COOKIE_MAX_AGE})
+    res.redirect('/');
+})
 
+//-------------Sign Out POST request----------------->
+app.post('/sign_out', (req, res) => {
+    res.clearCookie('username')
+    res.redirect('/')
+})
+
+//---------------------------SERVER----------------------------------------------->
 //-----------Start listening to the server--------->
 
 //Add nodemon dependency and add as start script in package.json to avoid
