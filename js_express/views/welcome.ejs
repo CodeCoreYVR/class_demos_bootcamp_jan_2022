@@ -1,13 +1,18 @@
-<h1><%- title %></h1>
+<%- include("./partials/header.ejs") %>
+    <h1><%- title %></h1>
 
-<% for(meme of memes) { %>
-    <div>
-        <img src="<%- meme %>" alt="meme">
-    </div>
-<% } %>
+    <% for(meme of memes) { %>
+        <div>
+            <img src="<%- meme %>" alt="meme">
+        </div>
+    <% } %>
 
-<%# # is for comments %>
-<%# = is for displaying, but it will not include html styling %>
-<%# - is for displaying and will include html styling %>
-<%# empty is for running JS %>
+    <%# # is for comments %>
+    <%# = is for displaying, but it will not include html styling %>
+    <%# - is for displaying and will include html styling %>
+    <%# empty is for running JS %>
+
+<%- include("./partials/footer.ejs") %>
+
+
 
