@@ -28,6 +28,13 @@ const express = require('express');
 const res = require('express/lib/response');
 const app = express();
 
+//Require method-override middleware
+// npm i method-override
+//This enables client to make HTTP requests with forms that are not
+//just GET or POST requests (DELETE, PATCH, ETC)
+const methodOverride = require('method-override')
+
+
 //--------------------BODY PARSER and URLENCODED MIDDLEWARE-------------------->
 //To be able to use data from a POST HTTP request, like filling out a form and submitting:
 //Previously we had to add body parser as an extra package but we don't need to install body parser anymore, 
@@ -44,6 +51,15 @@ const app = express();
 app.use(express.urlencoded({extended: true}))
 //It will modify the request object given to routes by adding a property to it named body
 //So request.body will be an object containing the data from our form
+
+//----------------------------Method Override Middleware---------------------->
+
+app.use(methodOverride((req, res) => {
+    if (req.body && req.body._method){
+        const method = req.body._method;
+        return method
+    }
+}))
 
 //----------------COOKIE PARSER-------------->
 // req.body.cookie
@@ -159,9 +175,6 @@ app.get('/', (request, response) => {
     })
 })
 
-//------------DEMO HELLO WORLD------>
-//first arg: path
-//second arg: request handler
 
 //------------SURVEY PAGE----------->
 app.get('/survey', (req, res) => {
@@ -181,7 +194,7 @@ app.get('/submit', (req, res) => {
         favouriteDay: favouriteDay,
         message: message
     })
-
+    
 })
 
 //--------SET ejs VIEW ENGINE-------->
@@ -194,6 +207,9 @@ app.set('view engine', 'ejs')
 //let express know that should find the templates inside views folder
 app.set('views', 'views')
 
+//------------DEMO HELLO WORLD------>
+//first arg: path
+//second arg: request handler
 app.get('/hello_world',(request, response)=>{
     // response.send("<h1>Hello World<h1>")
     response.render('hello_world')
@@ -213,6 +229,10 @@ app.post('/sign_out', (req, res) => {
     res.clearCookie('username')
     res.redirect('/')
 })
+
+//-------------------POST ROUTER ACCESSING POST ROUTES----->
+const postRouter = require('./routes/posts.js');
+app.use('/posts', postRouter)
 
 //---------------------------SERVER----------------------------------------------->
 //-----------Start listening to the server--------->
