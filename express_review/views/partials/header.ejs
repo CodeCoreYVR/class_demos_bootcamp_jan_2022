@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+    
+<div class="d-flex">
+    <a href="/tasks" class="mx-3">home</a>
+    <a href="/tasks/new" class="mx-3">new task</a>
+    <% if(username) {%>
+        <h3 class="mx-3">Hi <%= username %></h3>
+        <form action="/sign_out" method="post" class="mx-3">
+            <input type="submit" value="Sign Out">
+        </form>
+    <%}  else { %>
+        <a href="/login" class="mx-3">Sign In</a>
+    <% } %>
+</div>
