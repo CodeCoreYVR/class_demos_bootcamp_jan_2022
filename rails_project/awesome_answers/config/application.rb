@@ -33,5 +33,16 @@ module AwesomeAnswers
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    #The folllowing configurations only apply to when you run "rails g"
+    #to skip helper and asset files for the given resource you are generating
+    config.generators do |g|
+      #Do not create helper files when using "rails g"
+      #instead of saying --no-helper
+      g.helper = false
+      #Do not create js and css files when using "rails g"
+      #instead of --no-assets
+      g.assets = false
+    end
   end
 end
