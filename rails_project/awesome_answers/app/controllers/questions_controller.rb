@@ -21,7 +21,7 @@ class QuestionsController < ApplicationController
       # flash[:notice] = "Question created successfully!"
       redirect_to question_path(@question.id)
     else
-      render :new
+      render :new, status: 303
     end
   end
 
@@ -34,6 +34,8 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    @answers = @question.answers
+    @answer = Answer.new
   end
 
   #============UPDATE====================>
@@ -44,7 +46,7 @@ class QuestionsController < ApplicationController
     if @question.update(question_params)
       redirect_to question_path(@question.id)
     else
-      render :edit
+      render :edit, status: 303
     end
   end
 

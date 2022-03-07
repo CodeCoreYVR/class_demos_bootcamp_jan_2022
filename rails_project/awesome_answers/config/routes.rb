@@ -54,7 +54,17 @@ Rails.application.routes.draw do
   #on resources, and therefore RESTful routes are set up for all CRUD actions
   #with "resources"
   #instead of individual routes above, you can access all with:
-  resources :questions 
+  resources :questions do
+    # routes written inside of the block passed a resource method will be prefixed by a path corresponding to the passed in symbol
+    # in this case, all the nested routes will be prefixed with '/questions/question_id'
+
+    # post 'questions', to: 'questions#create', as: :create_question
+    # /questions method post
+    # /questions/:questions_id/answers method post
+
+    resources :answers, only: [:create, :destroy]
+    # except: [:show, :new, :edit, :update]
+  end
   #:questions referring to the questions controller
 
   #========Contacts Page and redirect to Thank you page=========>

@@ -1,5 +1,15 @@
 <h1>Question Edit Page</h1>
 
+<% if @question.errors.any? %>
+    <ul>
+        <% @question.errors.full_messages.each do |msg| %>
+            <li>
+                <%= msg %>
+            </li>
+        <% end %>
+    </ul>
+<% end %>
+
 <%= form_with(model: @question, url: question_path, method: :patch ) do |form| %>
     <div>
         <%= form.label :title %>
