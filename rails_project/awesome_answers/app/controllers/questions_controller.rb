@@ -8,6 +8,7 @@ class QuestionsController < ApplicationController
 
   #===========CALLBACKS=============>
   before_action :find_question, only: [:edit, :update, :show, :destroy]
+  before_action :authenticate_user!, except: [:show, :index]
 
   #============CREATE================>
   def new
@@ -17,8 +18,9 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
+    @question.user = current_user
     if @question.save
-      # flash[:notice] = "Question created successfully!"
+      flash.notice = "Question created successfully!"
       redirect_to question_path(@question.id)
     else
       render :new, status: 303

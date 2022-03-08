@@ -26,6 +26,8 @@ class Question < ApplicationRecord
     #q = Question.create(title:"hello", body:"World", view_count:2)
     #before_save will turn title into "Hello" before saving into the database
 
+    belongs_to :user
+
     has_many :answers, dependent: :destroy
     # dependent :destroy / :nullify
     # :destroy will delete the records in answers table that related to the question

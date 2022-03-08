@@ -1,9 +1,11 @@
 class AnswersController < ApplicationController
+    before_action :authenticate_user!
     before_action :find_question
     # create destroy
     def create
         @answer = Answer.new(params.require(:answer).permit(:body))
         @answer.question = @question;
+        @answer.user = current_user
         if @answer.save
             redirect_to question_path(@question.id), status: 303
         else

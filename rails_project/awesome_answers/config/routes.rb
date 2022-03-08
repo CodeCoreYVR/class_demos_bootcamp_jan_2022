@@ -67,6 +67,13 @@ Rails.application.routes.draw do
   end
   #:questions referring to the questions controller
 
+  resources :users
+  # /sessions/new
+  # /sessions post 
+  # /sessions
+  # if you dont need the :id in the routes, then use "resource" not "resources"
+  resource :sessions, only: [:new, :destroy, :create]
+
   #========Contacts Page and redirect to Thank you page=========>
   get 'contacts/new', to: 'contacts#new', as: 'contacts_new'
   post 'thank_you', to: 'contacts#create'
