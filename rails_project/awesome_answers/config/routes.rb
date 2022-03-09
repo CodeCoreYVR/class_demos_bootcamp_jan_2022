@@ -67,11 +67,16 @@ Rails.application.routes.draw do
   end
   #:questions referring to the questions controller
 
-  resources :users
+  #=================USERS=============>
+  resources :users do
+    get 'edit_password', to: 'users#edit_password', as: 'edit_password'
+    patch 'update_password', to: 'users#update_password', as: 'update_password'
+  end
   # /sessions/new
   # /sessions post 
   # /sessions
   # if you dont need the :id in the routes, then use "resource" not "resources"
+
   resource :sessions, only: [:new, :destroy, :create]
 
   #========Contacts Page and redirect to Thank you page=========>

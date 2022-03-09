@@ -3,7 +3,7 @@
     <p><%= @user.errors.full_messages.join(', ') %> </p>
 <% end %>
 
-<%= form_with model: @user do |f|%>
+<%= form_with model: @user do |f| %>
     <div>
         <%= f.label :first_name%>
         <%= f.text_field :first_name%>
@@ -19,3 +19,4 @@
     <%= f.submit "Update" %>
 <% end %>
 
+<%= link_to 'Change Password', user_edit_password_path(@user.id) %>
