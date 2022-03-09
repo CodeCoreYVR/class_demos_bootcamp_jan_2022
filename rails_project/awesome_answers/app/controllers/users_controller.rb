@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
     before_action :authenticate_user!, only: [:edit, :update]
     before_action :find_user, only: [:edit, :update]
+    before_action :authorize!, only: [:edit, :update, :edit_password, :update_password]
 
 
     def new
@@ -73,5 +74,12 @@ class UsersController < ApplicationController
 
     def find_user
         @user = User.find params[:id]
+    end
+
+    def authorize!
+        unless can? :crud, @user
+        redirect_to root_path 
+        flash[:alert] =  'Access Denied'
+        end
     end
 end

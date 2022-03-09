@@ -44,6 +44,8 @@ class Ability
     can :crud, Answer do |answer|
       user == answer.user
     end
+
+    can :crud, User, id: user.id
     
     #IMPORTANT - defining a rule here does not enforce it yet
     #You will have to enforce the rules yourself in the views and controllers where applicable
