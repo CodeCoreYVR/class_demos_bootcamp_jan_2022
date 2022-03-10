@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-    before_action :authenticate_user!, only: [:edit, :update]
+    before_action :authenticate_user!, only: [:edit, :update, :edit_password, :update_password]
     before_action :find_user, only: [:edit, :update]
-    before_action :authorize!, only: [:edit, :update, :edit_password, :update_password]
+    before_action :authorize!, only: [:edit, :update]
 
 
     def new
@@ -37,6 +37,7 @@ class UsersController < ApplicationController
 
     def edit_password
         @user = User.find params[:user_id]
+        authorize!
     end
 
     def update_password
