@@ -3,7 +3,7 @@ FactoryBot.define do
   factory :job_post do
     sequence(:title) { |n| Faker::Job.title + " #{n}" }
     #sequence is a method provided by factory-bot which accepts a lambda injecting a variable n. n is usually a number that factory-bot increments on every object it generates so we can use it to make sure all instances created are unique
-    description { Faker::Job.field + "-#{RANDOM_HUNDRED_CHARS}"}
+    description { Faker::Job.field + "-#{RANDOM_100_CHARS}"}
     # All objects created using Factories should be valid objects. In this case, we're adding 100 characters to the description of any job_post to make sure it passes the description length validation
     company_name { Faker::Company.name}
     min_salary { rand( 80_000..200_000)}
@@ -16,15 +16,3 @@ FactoryBot.define do
   #FactoryBot.attributes_for(:job_post) #Will generate only attributes for job_post
 end
 
-    description {Faker::Job.field + " #{RANDOM_100_CHARS}"}
-    company_name {Faker::Company.name}
-    min_salary {rand(80_000..200_000)}
-    max_salary {rand(200_000..400_000)}
-    location{ Faker::Address.city }
-  end
-
-
-  #FactoryBot.create(:job_post) #will create the object and save it to the db
-  #FactoryBot.build(:job_post) #will create the object and NOT save it to the db
-  #FactoryBot.attributes_for(:job_post) #will generate only attributes for job_post
-end
