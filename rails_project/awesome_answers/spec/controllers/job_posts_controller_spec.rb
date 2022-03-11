@@ -26,7 +26,7 @@ RSpec.describe JobPostsController, type: :controller do
             get(:new)
         
             #THEN
-            #assigns(:job_post) is avaialble from the gem rails-controller-testing
+            #assigns(:job_post) is available from the gem rails-controller-testing
             #it allows you to grab an instance variable, and it takes a symbol (:job_post)
             #All the models are available to the controller
             expect(assigns(:job_post)).to(be_a_new(JobPost))
@@ -102,6 +102,29 @@ RSpec.describe JobPostsController, type: :controller do
             end
         end
 
+    end
+    describe "#show" do
+        it "requires a render of the show template" do
+            #GIVEN
+            job_post = FactoryBot.create(:job_post)
+
+            #WHEN
+            get(:show, params: {id: job_post.id})
+
+            #THEN
+            expect(response).to render_template(:show)
+        end
+
+        it "requires setting an instance variable @job_post for the shown object" do
+        #GIVEN
+        job_post = FactoryBot.create(:job_post)
+
+        #WHEN
+        get(:show, params: {id: job_post.id})
+
+        #THEN
+        expect(assigns(:job_post)).to eq(job_post)
+        end
     end
 
 end
