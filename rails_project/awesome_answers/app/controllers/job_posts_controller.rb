@@ -13,6 +13,14 @@ class JobPostsController < ApplicationController
             :min_salary,
             :max_salary
         )
-        redirect_to job_post_path(@job_post)
+        if @job_post.save  #or @job_post.persisted?
+            redirect_to job_post_path(@job_post)
+        else
+            render :new
+        end
+
+    end
+
+    def show
     end
 end
