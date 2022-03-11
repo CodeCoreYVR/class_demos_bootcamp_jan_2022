@@ -93,4 +93,8 @@ Rails.application.routes.draw do
   # goodbye_url => http://localhost:3000/goodbye
   # goodbye path: what_path => /goodbye
   get('/form_example', {to: 'welcome#form_example'})
+
+
+  #===========JOB POSTS==========>
+  resources :job_posts, only: [:new]
 end
