@@ -127,4 +127,30 @@ RSpec.describe JobPostsController, type: :controller do
         end
     end
 
+    describe "#index" do
+        it "requires a render of the index template" do
+            #GIVEN
+            #triggers the index action
+
+            #WHEN
+            get(:index)
+
+            #THEN
+            expect(response).to(render_template(:index))
+        end
+
+        it "requires assigning an instance variable @job_posts which contains all the job posts in the db" do
+            #GIVEN
+            job_post_1 = FactoryBot.create(:job_post)
+            job_post_2 = FactoryBot.create(:job_post)
+            job_post_3 = FactoryBot.create(:job_post)
+
+            #WHEN
+            get(:index)
+
+            #THEN
+            expect(assigns(:job_posts)).to eq([job_post_3,job_post_2,job_post_1])
+        end
+    end
+
 end

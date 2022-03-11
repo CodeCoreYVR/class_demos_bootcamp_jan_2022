@@ -96,5 +96,5 @@ Rails.application.routes.draw do
 
 
   #===========JOB POSTS==========>
-  resources :job_posts, only: [:new, :create, :show]
+  resources :job_posts, only: [:new, :create, :show, :index]
 end
