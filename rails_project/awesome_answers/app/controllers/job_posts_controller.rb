@@ -1,4 +1,5 @@
 class JobPostsController < ApplicationController
+    before_action :authenticate_user!, only:[ :new, :create, :destroy, :edit, :update ] 
     def new
         @job_post = JobPost.new
     end
@@ -13,6 +14,7 @@ class JobPostsController < ApplicationController
             :min_salary,
             :max_salary
         )
+        @job_post.user = current_user
         if @job_post.save  #or @job_post.persisted?
             redirect_to job_post_path(@job_post)
         else
@@ -30,6 +32,12 @@ class JobPostsController < ApplicationController
     end
 
     def edit
+        @job_post = JobPost.find params[:id]
+        if can?(:edit, @job_post)
+            render :edit
+        else
+            redirect_to root_path
+        end
     end
 
     def update
@@ -48,8 +56,13 @@ class JobPostsController < ApplicationController
 
     def destroy
         @job_post = JobPost.find params[:id]
-        @job_post.destroy
-        flash[:danger] = "deleted job post"
-        redirect_to job_posts_path
+        if can?(:delete, @job_post)
+            @job_post.destroy
+            flash.alert = "deleted job post"
+            redirect_to job_posts_path
+        else
+            flash.notice = "Access Denied"
+            redirect_to new_sessions_path
+        end
     end
 end

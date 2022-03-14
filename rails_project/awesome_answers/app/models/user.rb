@@ -5,6 +5,7 @@ class User < ApplicationRecord
     # provides a method named 'authenticate'
     has_many :answers, dependent: :destroy
     has_many :questions, dependent: :destroy
+    has_many :job_posts, dependent: :destroy
 
     def full_name
         self.first_name + " " + self.last_name
