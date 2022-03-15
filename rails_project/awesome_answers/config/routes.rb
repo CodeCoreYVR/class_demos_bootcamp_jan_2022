@@ -64,6 +64,11 @@ Rails.application.routes.draw do
 
     resources :answers, only: [:create, :destroy]
     # except: [:show, :new, :edit, :update]
+    
+    resources :likes, shallow: true, only: [:create, :destroy]
+
+    get :liked, on: :collection
+    # above here creates a path: GET "/questions/liked" 
   end
   #:questions referring to the questions controller
 

@@ -50,6 +50,16 @@ class Ability
     can :crud, JobPost do |job_post|
       user == job_post.user
     end
+
+    can(:like, Question) do |question|
+      user.persisted? && question.user != user
+      # check if user is saved in the database
+      # check if the owner of the question is not the current user
+    end
+
+    can(:destroy, Like) do |like|
+      like.user == user
+    end
     #IMPORTANT - defining a rule here does not enforce it yet
     #You will have to enforce the rules yourself in the views and controllers where applicable
   end
