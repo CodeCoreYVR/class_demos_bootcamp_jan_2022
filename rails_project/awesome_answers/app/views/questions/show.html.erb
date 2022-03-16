@@ -1,9 +1,11 @@
 <h1>Question Show Page</h1>
 <h2><%= @question.title %></h2>
 <p><%= @question.body %></p>
+
 <p><small>Created at: <%= @question.created_at %>, Views: <%= @question.view_count %></small></p>
 <label>Created by: <%= @question.user.full_name%> </label>
 <small>Liked by: <%= @question.likes.count %> </small>
+<p><strong>Tags:</strong> <%= @question.tags.map(&:name).join(", ") %></p>
 <% if can? :crud, @question %>
     <%= button_to 'Edit', edit_question_path(@question), method: :get %>
     <%= button_to 'Delete', question_path(@question), method: :delete, data: { confirm: "Are you sure?"} %>

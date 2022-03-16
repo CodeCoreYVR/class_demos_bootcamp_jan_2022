@@ -44,6 +44,11 @@ class Question < ApplicationRecord
     #         foreign_key: "question_id" # foreign key for the current table(Question)
     #     }
     # )
+
+    has_many :taggings, dependent: :destroy
+    has_many :tags, through: :taggings#, source: :tag
+    #if the name of the association (i.e. tags) is the same as the
+    #source singularized (i.e. tag) then the 'source' named argumemnt can be omitted
     
     #==============VALIDATIONS===============>
     # Create validations by using the 'validates' method
