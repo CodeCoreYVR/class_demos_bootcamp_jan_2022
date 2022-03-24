@@ -102,4 +102,15 @@ Rails.application.routes.draw do
 
   #===========JOB POSTS==========>
   resources :job_posts, only: [:new, :create, :show, :index, :destroy, :edit, :update]
+
+  #=============API Routes==============>
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :questions, only: [:create, :index, :show, :update, :destroy]
+    end
+
+    #namespace :v2 do
+     #resources :whatever
+    #end
+  end
 end
