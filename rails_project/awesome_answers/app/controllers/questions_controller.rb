@@ -34,6 +34,10 @@ class QuestionsController < ApplicationController
     #Model.all is a method built into active record used to return all records of that model
     #The @ sign is necessary to make a variable an instance variable
     #You need an instance varibale to make it available to the view pages!!
+    respond_to do |format|
+      format.html { render }
+      format.json { render json: @questions }
+    end
   end
 
   def show
