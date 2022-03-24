@@ -1,4 +1,17 @@
 class Api::V1::QuestionsController < Api::ApplicationController
+    def create
+        question = Question.new(question_params)
+        question.user = User.first #hardcoded user for now
+        if question.save
+          render json: { id: question.id }
+        else
+          render(
+              json: { errors: question.errors.messages },
+              status: 422 #unprocessable entity HTTP Status code
+          )
+        end
+    end
+
     def index
         questions = Question.order(created_at: :desc)
         render(json: questions, each_serializer: QuestionCollectionSerializer)
@@ -7,5 +20,9 @@ class Api::V1::QuestionsController < Api::ApplicationController
     def show
         question = Question.find(params[:id])
         render(json: question)
+    end
+
+    def question_params
+        params.require(:question).permit(:title, :body)
     end
 end
