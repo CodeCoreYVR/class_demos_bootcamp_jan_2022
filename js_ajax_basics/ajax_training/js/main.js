@@ -36,6 +36,32 @@ students.onload = () => {
 //up to this point we defined our request and finally we need to trigger the request:
 students.send();
 
+//-----------------XML AJAX Pokemon Exampl-------->
+
+//https://pokeapi.co
+
+const getReq = new XMLHttpRequest();
+
+//the "load" event will be fired off when the response is back from the request
+//Read the "responseText" property off of "getReq" to read the response
+getReq.addEventListener(
+    'load',
+    function(){
+        console.log(this.responseText)
+    }
+)
+
+//open() initializes a request.  It takes in the following args:
+//1. name of the HTTP verb
+//2. api endpoint
+getReq.open(
+    "GET",
+    "https://pokeapi.co/api/v2/pokemon/pikachu"
+)
+
+//SEND REQ
+getReq.send()
+
 //------------------jQuery AJAX request----------->
 
 $.ajax({
