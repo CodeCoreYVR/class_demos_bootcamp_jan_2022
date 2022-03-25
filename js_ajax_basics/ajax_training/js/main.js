@@ -85,6 +85,11 @@ fetchDataButton.addEventListener("click", async() => {
     console.log("axios data: ", response.data)
 })
 
+//-----------Superagent req to data.json students-------->
+superagent.get("http://localhost:3000/students").then(res => {
+    console.log("superagent data: ", JSON.parse(res.text));
+})
+
 
 
 
