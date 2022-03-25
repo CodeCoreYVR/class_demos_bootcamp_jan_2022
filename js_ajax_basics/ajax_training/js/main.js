@@ -90,6 +90,15 @@ superagent.get("http://localhost:3000/students").then(res => {
     console.log("superagent data: ", JSON.parse(res.text));
 })
 
+//----------Fetching data using Fetch AJAX-------------->
+// const fetchDataButton = document.querySelector("#fetch-button");
+fetchDataButton.addEventListener("click", () => {
+    fetch("http://localhost:3000/students").then(res => {
+        return res.json();
+    }).then(data => {
+        console.log("fetch: ", data)
+    })
+})
 
 
 
