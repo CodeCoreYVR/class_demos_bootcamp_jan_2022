@@ -36,6 +36,21 @@ students.onload = () => {
 //up to this point we defined our request and finally we need to trigger the request:
 students.send();
 
+//------------------jQuery AJAX request----------->
+
+$.ajax({
+    method: "GET",
+    url: " https://pokeapi.co/api/v2/pokemon/ditto",
+    //this is a function that will be invoked after the request is successful
+    success(data){
+        console.log(data)
+    }
+
+    //or
+    //success: function(data){
+        // console.log("jquery pokemon: " + data) 
+    // }
+})
 
 
 
