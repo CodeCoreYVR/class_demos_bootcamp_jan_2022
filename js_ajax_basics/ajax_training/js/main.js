@@ -78,6 +78,13 @@ $.ajax({
     // }
 })
 
+//------------Axios req to data.json departments---------->
+const fetchDataButton = document.querySelector("#fetch-button");
+fetchDataButton.addEventListener("click", async() => {
+    const response = await axios.get("http://localhost:3000/departments");
+    console.log("axios data: ", response.data)
+})
+
 
 
 
