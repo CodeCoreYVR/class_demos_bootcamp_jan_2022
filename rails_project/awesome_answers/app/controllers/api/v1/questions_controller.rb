@@ -40,17 +40,17 @@ class Api::V1::QuestionsController < Api::ApplicationController
 
     def show
         # return a single question in json format
-        render(json: question)
+        render(json: @question)
     end
 
     
     def update
         # based on the id of the user request, update that question with the given params
-        if question.update(question_params)
-            render json: {id: question.id }
+        if @question.update(question_params)
+            render json: {id: @question.id }
         else
             render(
-                json: { errors: question.errors.messages },
+                json: { errors: @question.errors.messages },
                 status: 422
             )
         end
@@ -58,7 +58,7 @@ class Api::V1::QuestionsController < Api::ApplicationController
 
     def destroy
         # based on the id of the user request, delete that question
-        if question.destroy
+        if @question.destroy
             #head :ok
             render( json: { status:200 } )
         else
@@ -74,6 +74,6 @@ class Api::V1::QuestionsController < Api::ApplicationController
     end
 
     def find_question
-        question = Question.find(params[:id])
+        @question = Question.find(params[:id])
     end
 end

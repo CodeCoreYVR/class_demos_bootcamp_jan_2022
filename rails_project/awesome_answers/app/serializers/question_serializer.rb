@@ -27,7 +27,7 @@ class QuestionSerializer < ActiveModel::Serializer
   # within the current serializer. This would replace any global serializer 
   # whenever we are serializing questions.
   class AnswerSerializer < ActiveModel::Serializer
-    attributes :id, :author_full_name
+    attributes :id, :author_full_name, :body
 
     def author_full_name
       object.user&.full_name
