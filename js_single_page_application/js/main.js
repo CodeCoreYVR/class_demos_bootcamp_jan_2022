@@ -43,6 +43,15 @@ const Question = {
             body: JSON.stringify(params),
             credentials: "include"
         }).then(res => res.json())
+    },
+    delete(qid) {
+        return fetch(`${baseUrl}/questions/${qid}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "include"
+        }).then(res => res.json())
     }
 }
 
@@ -154,6 +163,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
             } else {
                 // clicked the delete button
+                const qid = event.target.getAttribute("data-id");
+                Question.delete(qid).then(res => {
+                    console.log(res)
+                })
             }
         }
     })
