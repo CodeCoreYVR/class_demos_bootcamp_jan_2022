@@ -14,17 +14,56 @@
 // 4. when we try to make a request from a sub domain to a domain
 // e.g. developers.google.com => www.google.com
 
-const baseUrl = "http://localhost:3000/api/v1/questions";
+const baseUrl = "http://localhost:3000/api/v1";
 
 const Question = {
     // fetch all the question from the rails server
     all() {
-        return fetch(baseUrl).then(res => res.json())
+        return fetch(`${baseUrl}/questions`).then(res => res.json())
     },
     one(qid) {
-        return fetch(`${baseUrl}/${qid}`).then(res => res.json())
+        return fetch(`${baseUrl}/questions/${qid}`).then(res => res.json())
+    },
+    create(params) {
+        return fetch(`${baseUrl}/questions`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(params),
+            credentials: "include"
+        }).then(res => res.json())
+    },
+    update(params, qid) {
+        return fetch(`${baseUrl}/questions/${qid}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(params),
+            credentials: "include"
+        }).then(res => res.json())
     }
 }
+
+const Session = {
+    create(params) {
+        return fetch(`${baseUrl}/session`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(params),
+            credentials: "include"
+        }).then(res => {
+            return res.json()
+        })
+    }
+}
+
+Session.create({ email: "admin@user.com", password: "123" }).then(res => {
+    console.log(res)
+})
 
 Question.all().then(questions => {
     // console.log(questions)
@@ -86,5 +125,45 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.querySelector("#question-show").innerHTML = questionHTML;
             })
         }
+    })
+
+    document.querySelector("#new-question-form").addEventListener("submit", event => {
+        event.preventDefault();
+        const titleText = document.querySelector("#title").value;
+        const bodyText = document.querySelector("#body").value;
+        Question.create({ title: titleText, body: bodyText }).then(res => {
+            console.log(res)
+        })
+    })
+
+    document.querySelector("#question-show").addEventListener("click", event => {
+        event.preventDefault();
+        const buttonTarget = event.target.getAttribute("data-target");
+        if (buttonTarget) {
+            // we clicked the buttons
+            if (buttonTarget === 'question-edit') {
+                // clicked the edit button
+                // redirect to the edit page
+                document.querySelector(`[data-target="question-edit"]`).click();
+                // fill the content of the edit form
+                const qid = event.target.getAttribute("data-id");
+                Question.one(qid).then(question => {
+                    document.querySelector("#edit-title").value = question.title;
+                    document.querySelector("#edit-body").value = question.body;
+                    document.querySelector("#edit-id").value = question.id
+                })
+            } else {
+                // clicked the delete button
+            }
+        }
+    })
+    document.querySelector("#edit-question-form").addEventListener("submit", event => {
+        event.preventDefault();
+        const editTitle = document.querySelector("#edit-title").value;
+        const editBody = document.querySelector("#edit-body").value;
+        const editId = document.querySelector("#edit-id").value;
+        Question.update({ title: editTitle, body: editBody }, editId).then(res => {
+            console.log(res)
+        })
     })
 })

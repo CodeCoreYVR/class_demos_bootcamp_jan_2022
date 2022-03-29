@@ -27,6 +27,9 @@
           <a class="item" href="" data-target="question-show">
             Show Question
           </a>
+          <a class="item" href="" data-target="question-edit">
+            Edit Question
+          </a>
         </div>
       </header>
 
@@ -87,7 +90,7 @@
               <input
                 type="text"
                 name="title"
-                id="title"
+                id="edit-title"
                 placeholder="Question Title"
               />
             </div>
@@ -96,13 +99,13 @@
               <label for="body">Body</label>
               <textarea
                 name="body"
-                id="body"
+                id="edit-body"
                 placeholder="Question Body"
                 rows="3"
               ></textarea>
             </div>
 
-            <input type="hidden" value="" name="id" />
+            <input type="hidden" value="" name="id" id="edit-id" />
             <button class="ui button" type="submit">Update Question</button>
           </form>
         </section>
