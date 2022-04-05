@@ -1,6 +1,7 @@
 import QuestionDetails from './QuestionDetails';
 import { Component } from 'react';
-import questionIndexData from '../questionIndexData'
+import questionIndexData from '../questionIndexData';
+import NewQuestionForm from './NewQuestionForm';
 
 class QuestionIndexPage extends Component {
     state = {
@@ -25,15 +26,27 @@ class QuestionIndexPage extends Component {
         // })
     }
 
+    createNewQuestion(params) {
+        this.setState({
+            questions: [
+                params,
+                ...this.state.questions
+            ]
+        })
+    }
+
     render() {
         return (
-            <ul>
-                {
-                    this.state.questions.map((e, i) => {
-                        return <li key={i}>{e.id} - {e.title} <button onClick={() => { this.deleteQuestion(e.id) }}>Delete</button> </li>
-                    })
-                }
-            </ul>
+            <>
+                <ul>
+                    {
+                        this.state.questions.map((e, i) => {
+                            return <li key={i}>{e.id} - {e.title} <button onClick={() => { this.deleteQuestion(e.id) }}>Delete</button> </li>
+                        })
+                    }
+                </ul>
+                <NewQuestionForm submitForm={(params) => this.createNewQuestion(params)} />
+            </>
         )
     }
 }
