@@ -14,7 +14,8 @@ class QuestionShowPage extends Component {
         };
         // bind the key word this in the method
         // so the key word `this` is always the class QuestionShowPage
-        this.delete = this.delete.bind(this)
+        this.delete = this.delete.bind(this);
+        // this.deleteTheAnswer = this.deleteTheAnswer.bind(this);
     }
     // state = {
     //     question: questionData,
@@ -23,6 +24,14 @@ class QuestionShowPage extends Component {
     delete() {
         this.setState({
             question: null
+        })
+    }
+    deleteTheAnswer(id) {
+        this.setState({
+            question: {
+                ...this.state.question,
+                answers: this.state.question.answers.filter(a => a.id !== id),
+            }
         })
     }
     render() {
@@ -51,7 +60,7 @@ class QuestionShowPage extends Component {
                 ]
             } */}
                 <button onClick={this.delete}>Delete The Question</button>
-                <AnswerList list={this.state.question.answers} />
+                <AnswerList list={this.state.question.answers} deleteTheAnswer={(id) => this.deleteTheAnswer(id)} />
             </div>
         )
     }
