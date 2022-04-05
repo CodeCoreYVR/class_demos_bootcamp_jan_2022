@@ -4,14 +4,33 @@ import questionIndexData from '../questionIndexData'
 
 class QuestionIndexPage extends Component {
     state = {
-        questions: questionIndexData
+        questions: questionIndexData,
+        id: 20,
+        number: 10
     }
+    deleteQuestion(id) {
+        console.log(id)
+        // we cant reset the value of the state in this way
+        // this.state.questions = this.state.questions.filter(q => q.id != id)
+        // you can only reset the value by using this.setState()
+
+        this.setState({
+            questions: this.state.questions.filter(q => q.id != id)
+        })
+        // this.setState((state, props) => {
+        //     // sth here
+        //     return {
+        //         questions: this.state.questions.filter(q => q.id != id)
+        //     }
+        // })
+    }
+
     render() {
         return (
             <ul>
                 {
                     this.state.questions.map((e, i) => {
-                        return <li key={i}>{e.id} - {e.title}</li>
+                        return <li key={i}>{e.id} - {e.title} <button onClick={() => { this.deleteQuestion(e.id) }}>Delete</button> </li>
                     })
                 }
             </ul>

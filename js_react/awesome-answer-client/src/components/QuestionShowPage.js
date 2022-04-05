@@ -7,13 +7,23 @@ import questionData from '../questionData';
 
 class QuestionShowPage extends Component {
     // two ways to for declaring state
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {};
+    constructor(props) {
+        super(props);
+        this.state = {
+            question: questionData,
+        };
+        // bind the key word this in the method
+        // so the key word `this` is always the class QuestionShowPage
+        this.delete = this.delete.bind(this)
+    }
+    // state = {
+    //     question: questionData,
+    //     times: 1
     // }
-    state = {
-        question: questionData,
-        times: 1
+    delete() {
+        this.setState({
+            question: null
+        })
     }
     render() {
         return (
@@ -40,6 +50,7 @@ class QuestionShowPage extends Component {
                     <AnswerDetails key={3} body="green" author_name="DDD" created_at="2022-04-09" />,
                 ]
             } */}
+                <button onClick={this.delete}>Delete The Question</button>
                 <AnswerList list={this.state.question.answers} />
             </div>
         )
