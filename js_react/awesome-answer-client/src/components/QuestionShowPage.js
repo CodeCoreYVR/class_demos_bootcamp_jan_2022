@@ -3,8 +3,18 @@ import { Component } from 'react'
 import QuestionDetails from './QuestionDetails';
 import AnswerList from './AnswerList'
 import '../App.css';
+import questionData from '../questionData';
 
 class QuestionShowPage extends Component {
+    // two ways to for declaring state
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {};
+    // }
+    state = {
+        question: questionData,
+        times: 1
+    }
     render() {
         return (
             // styles are in camelcased
@@ -13,11 +23,11 @@ class QuestionShowPage extends Component {
             // 2. put the name inside className attribute
             <div style={{ marginLeft: "2rem" }} className="App">
                 <QuestionDetails
-                    title="What is your favourite color"
-                    body="Red, green, blue, etc"
-                    author={{ full_name: "Admin User" }}
-                    created_at={new Date()}
-                    view_count={100}
+                    title={this.state.question.title}
+                    body={this.state.question.body}
+                    author={this.state.question.author}
+                    created_at={this.state.question.created_at}
+                    view_count={this.state.question.view_count}
                 // except the strings, all the other values should be inside the {}.
                 // e.g. view_count={100} is_admin={false} created_at={new Date()} author={{full_name: "Admin User"}}
                 />
@@ -30,13 +40,7 @@ class QuestionShowPage extends Component {
                     <AnswerDetails key={3} body="green" author_name="DDD" created_at="2022-04-09" />,
                 ]
             } */}
-                <AnswerList list={
-                    [
-                        { body: "red", author_name: "AAA", created_at: "2022-04-05" },
-                        { body: "yellow", author_name: "BBB", created_at: "2022-04-05" },
-                        { body: "blue", author_name: "CCC", created_at: "2022-04-05" }
-                    ]
-                } />
+                <AnswerList list={this.state.question.answers} />
             </div>
         )
     }
