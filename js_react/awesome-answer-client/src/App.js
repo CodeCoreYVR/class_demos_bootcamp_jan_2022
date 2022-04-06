@@ -9,12 +9,19 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      clocksCount: [1] //an array of something
+      clocksCount: [5,9,8] //an array of something
     }
   }
   render(){
     return(
-      <CurrentDateTime />
+      <div>
+      {
+        this.state.clocksCount.map((c, i) => {
+          return <CurrentDateTime key={i} shouldShowTime={true}/>
+        })
+      }
+    </div>
+
     )
   }
 }

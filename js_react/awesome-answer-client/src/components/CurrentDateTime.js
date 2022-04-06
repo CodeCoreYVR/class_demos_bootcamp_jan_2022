@@ -12,14 +12,36 @@ class CurrentDateTime extends Component {
   //gets triggered after a component re-renders
   componentDidMount(){
     console.log('3: componentDidMount');
+    this.intervalId = setInterval(() => {
+        this.setState((state) => {
+            return{
+                date: new Date()
+            }
+        })
+    }, 3000)
   }
+
+  componentDidUpdate(){
+    console.log('4: componentDidUpdate')
+  }
+
+    componentWillUnmount(){
+        console.log('5: componentWillUnmount')
+        clearInterval(this.intervalId)
+    }
+
 
 
   render() {
     console.log('2: render fired')
       return (
-          <div>
-              CURRENT TIME: {this.state.date.toLocaleString()}
+          <div> 
+                {
+                  this.props.shouldShowTime ?
+                  this.state.date.toLocaleTimeString()
+                  :
+                  this.state.date.toLocaleDateString()
+                }
           </div>
       )
   }
