@@ -22,7 +22,8 @@ class QuestionShowPage extends Component {
     // }
 
     componentDidMount(){
-        Question.show(7) //just hard code to fetch question 45 for now
+        // Question.show(7) //just hard code to fetch question 45 for now
+        Question.show(this.props.match.params.id) //not hard coded anymore - we have access to params and the method match through our router
         .then((fetchedAPIquestion) => {
             this.setState((state) => {
                 return {
