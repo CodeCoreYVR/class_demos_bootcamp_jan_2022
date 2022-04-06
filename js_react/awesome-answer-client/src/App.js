@@ -3,8 +3,9 @@ import './App.css';
 import React, { Component } from 'react';
 // import CurrentDateTime from './components/CurrentDateTime'
 import QuestionShowPage from './components/QuestionShowPage'
-// import QuestionIndexPage from './components/QuestionIndexPage'
+import QuestionIndexPage from './components/QuestionIndexPage'
 import { Session } from './requests'
+import { BrowserRouter, Route } from 'react-router-dom';
 
 class App extends Component {
   constructor(props){
@@ -33,7 +34,10 @@ class App extends Component {
 
   render(){
     return(
-      <QuestionShowPage/>
+      <BrowserRouter>
+        <Route exact path='/questions' component={QuestionIndexPage}/>
+        <Route path='/questions/:id' component={QuestionShowPage} />
+      </BrowserRouter>
     )
   }
 }
