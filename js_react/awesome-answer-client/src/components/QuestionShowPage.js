@@ -3,14 +3,15 @@ import { Component } from 'react'
 import QuestionDetails from './QuestionDetails';
 import AnswerList from './AnswerList'
 import '../App.css';
-import questionData from '../questionData';
+// import questionData from '../questionData';
+import {Question} from '../requests'
 
 class QuestionShowPage extends Component {
     // two ways to for declaring state
     constructor(props) {
         super(props);
         this.state = {
-            question: questionData,
+            question: { question: {} }
         };
         // bind the key word this in the method
         // so the key word `this` is always the class QuestionShowPage
