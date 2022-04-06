@@ -5,8 +5,9 @@ import React, { Component } from 'react';
 import QuestionShowPage from './components/QuestionShowPage'
 import QuestionIndexPage from './components/QuestionIndexPage'
 import { Session } from './requests'
-import { BrowserRouter, Route } from 'react-router-dom';
-import NavBar from './components/NavBar'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import NavBar from './components/NavBar';
+import NewQuestionPage from './components/NewQuestionPage';
 
 class App extends Component {
   constructor(props){
@@ -37,8 +38,11 @@ class App extends Component {
     return(
       <BrowserRouter>
         <NavBar/>
-        <Route exact path='/questions' component={QuestionIndexPage}/>
-        <Route path='/questions/:id' component={QuestionShowPage} />
+        <Switch>
+          <Route exact path='/questions' component={QuestionIndexPage}/>
+          <Route exact path='/questions/new' component={NewQuestionPage}></Route>
+          <Route exact path='/questions/:id' component={QuestionShowPage} />
+        </Switch>
       </BrowserRouter>
     )
   }
