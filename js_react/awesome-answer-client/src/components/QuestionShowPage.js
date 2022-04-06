@@ -3,15 +3,14 @@ import { Component } from 'react'
 import QuestionDetails from './QuestionDetails';
 import AnswerList from './AnswerList'
 import '../App.css';
-import questionData from '../questionData';
+// import questionData from '../questionData';
+import { Question } from '../requests';
 
 class QuestionShowPage extends Component {
     // two ways to for declaring state
     constructor(props) {
         super(props);
-        this.state = {
-            question: questionData,
-        };
+        this.state = { stateQuestion : {} }
         // bind the key word this in the method
         // so the key word `this` is always the class QuestionShowPage
         this.delete = this.delete.bind(this);
@@ -21,6 +20,22 @@ class QuestionShowPage extends Component {
     //     question: questionData,
     //     times: 1
     // }
+
+    componentDidMount(){
+        Question.show(7) //just hard code to fetch question 45 for now
+        .then((fetchedAPIquestion) => {
+            this.setState((state) => {
+                return {
+                    stateQuestion : fetchedAPIquestion
+                }
+            })
+        })
+    }
+
+    componentDidUpdate(){
+        console.log('the state has been updated with the fetched data')
+    }
+
     delete() {
         this.setState({
             question: null
@@ -30,11 +45,12 @@ class QuestionShowPage extends Component {
         this.setState({
             question: {
                 ...this.state.question,
-                answers: this.state.question.answers.filter(a => a.id !== id),
+                answers: this.state.answers.filter(a => a.id !== id),
             }
         })
     }
     render() {
+        const question = this.state.stateQuestion
         return (
             // styles are in camelcased
             // for using a separate stylesheet:
@@ -42,11 +58,11 @@ class QuestionShowPage extends Component {
             // 2. put the name inside className attribute
             <div style={{ marginLeft: "2rem" }} className="App">
                 <QuestionDetails
-                    title={this.state.question.title}
-                    body={this.state.question.body}
-                    author={this.state.question.author}
-                    created_at={this.state.question.created_at}
-                    view_count={this.state.question.view_count}
+                    title={question.title}
+                    body={question.body}
+                    author={question.author}
+                    created_at={question.created_at}
+                    view_count={question.view_count}
                 // except the strings, all the other values should be inside the {}.
                 // e.g. view_count={100} is_admin={false} created_at={new Date()} author={{full_name: "Admin User"}}
                 />
@@ -60,7 +76,7 @@ class QuestionShowPage extends Component {
                 ]
             } */}
                 <button onClick={this.delete}>Delete The Question</button>
-                <AnswerList list={this.state.question.answers} deleteTheAnswer={(id) => this.deleteTheAnswer(id)} />
+                <AnswerList list={question.answers} deleteTheAnswer={(id) => this.deleteTheAnswer(id)} />
             </div>
         )
     }
