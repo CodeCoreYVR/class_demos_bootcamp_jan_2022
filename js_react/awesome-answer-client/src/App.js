@@ -10,6 +10,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import NewQuestionPage from './components/NewQuestionPage';
 import SignInPage from './components/SignInPage';
+import AuthRoute from './components/AuthRoute';
 
 class App extends Component {
   constructor(props){
@@ -56,7 +57,7 @@ class App extends Component {
 
           </Route>
           <Route exact path='/questions' component={QuestionIndexPage}/>
-          <Route exact path='/questions/new' component={NewQuestionPage}></Route>
+          <AuthRoute isAuthenticated={!!this.state.user} exact path='/questions/new' component={NewQuestionPage}></AuthRoute>
           <Route exact path='/questions/:id' component={QuestionShowPage} />
         </Switch>
       </BrowserRouter>
