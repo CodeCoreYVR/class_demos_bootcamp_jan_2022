@@ -54,3 +54,13 @@ export const Session = {
     }
 }
 
+export const User = {
+    current(){
+        return fetch(`${baseUrl}/users/current`, {
+            credentials: "include"
+        }).then(res => {
+            return res.json()
+        })
+    }
+}
+
