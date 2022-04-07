@@ -11,6 +11,7 @@ import NavBar from './components/NavBar';
 import NewQuestionPage from './components/NewQuestionPage';
 import SignInPage from './components/SignInPage';
 import AuthRoute from './components/AuthRoute';
+import SignUpPage from './components/SignUpPage';
 
 class App extends Component {
   constructor(props){
@@ -53,9 +54,9 @@ class App extends Component {
         <Switch>
           <Route exact path='/sign_in'
           render={(routeProps) => <SignInPage {...routeProps } onSignIn={this.getCurrentUser} />}
-          >
-
-          </Route>
+          />
+          <Route exact path='/sign_up' 
+          render={(routeProps) => <SignUpPage {...routeProps} onSignUp={this.getCurrentUser} />}/>
           <Route exact path='/questions' component={QuestionIndexPage}/>
           <AuthRoute isAuthenticated={!!this.state.user} exact path='/questions/new' component={NewQuestionPage}></AuthRoute>
           <Route exact path='/questions/:id' component={QuestionShowPage} />
