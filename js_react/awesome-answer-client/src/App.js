@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 // import CurrentDateTime from './components/CurrentDateTime'
 import QuestionShowPage from './components/QuestionShowPage';
 import QuestionIndexPage from './components/QuestionIndexPage';
-import { Session } from './requests';
+// import { Session } from './requests';
 import { User } from './requests';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
@@ -36,10 +36,19 @@ class App extends Component {
     })
   }
 
+  onSignOut = () => { this.setState( { user: null })}
+
+  //Anytime we want to render a component that requires some props,
+  // and that component is being rendered by a Route component
+  //then the way to pass props is to use the "render" property
+  //It takes a function as an argument and the function returns the component
+  //with the props passed to it. "routeProps" represents all the routing props
+  //Make sure to pass them to the component as well
+
   render(){
     return(
       <BrowserRouter>
-        <NavBar currentUser={this.state.user}/>
+        <NavBar currentUser={this.state.user} onSignOut={this.onSignOut}/>
         <Switch>
           <Route exact path='/sign_in'
           render={(routeProps) => <SignInPage {...routeProps } onSignIn={this.getCurrentUser} />}

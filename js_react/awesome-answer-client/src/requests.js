@@ -51,7 +51,14 @@ export const Session = {
         }).then(res => {
             return res.json()
         })
+    },
+    destroy(){
+       return fetch(`${baseUrl}/session`, {
+           method: 'DELETE',
+           credentials: 'include',
+       }).then(res => res.json())
     }
+
 }
 
 export const User = {
