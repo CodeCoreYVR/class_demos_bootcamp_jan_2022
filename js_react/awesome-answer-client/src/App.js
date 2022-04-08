@@ -13,6 +13,7 @@ import SignInPage from './components/SignInPage';
 import AuthRoute from './components/AuthRoute';
 import SignUpPage from './components/SignUpPage';
 import UseStateHook from './components/UseStateHook';
+import UseEffectHook from './components/UseEffectHook';
 
 class App extends Component {
   constructor(props){
@@ -62,6 +63,7 @@ class App extends Component {
           <AuthRoute isAuthenticated={!!this.state.user} exact path='/questions/new' component={NewQuestionPage}></AuthRoute>
           <Route exact path='/questions/:id' component={QuestionShowPage} />
           <Route path='/use_state' component={UseStateHook} />
+          <Route path='/use_effect' component={UseStateHook} />
         </Switch>
       </BrowserRouter>
     )
