@@ -7,6 +7,7 @@ function SignInPage(props){
     // const [inputText, setInputText] = useState('') 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState([])
 
     function handleSubmit(event){
         event.preventDefault();
@@ -22,7 +23,10 @@ function SignInPage(props){
             password: password
         }
         Session.create(params).then(data => {
-            if (data.id){
+            if(data.status === 404){
+                setErrors([...errors, {message: "Wrong email or password"}]);
+            }
+            else if (data.id){
                 onSignIn()
                 //Navigate to the Index page from the browser
                 //We can 'push' on history to manipulate the browser
@@ -36,6 +40,15 @@ function SignInPage(props){
         <main>
             <h1>Sign In</h1>
             <form onSubmit={handleSubmit}>
+                {errors.length > 0 ? (
+                    <div>
+                        <h4>Failed to Sign In</h4>
+                        <p>{errors.map(error => error.messages).join(", ")}</p>
+                    </div>
+                ) : (
+                    ""
+                )
+                }
                 <div>
                     <label htmlFor="email">Email</label>
                     <input type="text" name="email" id="email" onChange={event => {
