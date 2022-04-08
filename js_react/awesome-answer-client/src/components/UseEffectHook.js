@@ -28,7 +28,7 @@ export default function UseEffectHook() {
     // }, [])
 
     useEffect(() => {
-            console.log('now you are inside uesEffect function')
+            console.log('now you are inside useEffect function')
             return () => {
                 console.log('componentWillUnmount');
             }
