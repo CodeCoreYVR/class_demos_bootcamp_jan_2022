@@ -1,4 +1,5 @@
-const path = require("path")
+const path = require("path");
+const HTMLWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     mode: "development",
@@ -16,5 +17,35 @@ module.exports = {
         path: path.join(__dirname, "build"),
         // filename: "chunk.js"
         filename: "[name].js"
-    }
+    },
+    module: {
+        rules: [
+            {
+                loader: "file-loader",
+                test: /\.(png|jpg|gif|webp|svg)$/,
+                options: {
+                    outputPath: "images/",
+                    name: "[name].[ext]"
+                }
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    { loader: "style-loader" },
+                    { loader: "css-loader" }
+                ]
+            },
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                loader: "babel-loader"
+            }
+        ]
+    },
+    plugins: [
+        new HTMLWebpackPlugin({
+            title: "Webpack Demo", //<title></title>
+            chunks: ["main"]
+        })
+    ]
 }
