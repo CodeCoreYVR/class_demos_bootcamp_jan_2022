@@ -1,3 +1,4 @@
+import FormErrors from './FormErrors'
 const NewQuestionForm = props => {
 
     const getDataAndSubmit = (event) => {
@@ -15,7 +16,7 @@ const NewQuestionForm = props => {
                 id: 5
             }
         )
-        event.currentTarget.reset();
+        // event.currentTarget.reset();
     }
 
     return (
@@ -24,11 +25,13 @@ const NewQuestionForm = props => {
                 <label htmlFor="title">Title</label>
                 <br />
                 <input type="text" name="title" id="" />
+                <FormErrors errors={props.errors} forField="title" />
             </div>
             <div>
                 <label htmlFor="body">Body</label>
                 <br />
                 <input type="text" name="body" id="" />
+                <FormErrors errors={props.errors} forField="body" />
             </div>
             <div>
                 <input type="submit" value="Create Question" />

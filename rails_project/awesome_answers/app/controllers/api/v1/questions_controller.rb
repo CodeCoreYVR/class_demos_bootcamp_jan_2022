@@ -17,14 +17,18 @@ class Api::V1::QuestionsController < Api::ApplicationController
         # response failed or success
         question = Question.new(question_params)
         question.user = current_user
-        if question.save
-          render json: { id: question.id }
-        else
-          render(
-              json: { errors: question.errors.messages },
-              status: 422 #unprocessable entity HTTP Status code
-          )
-        end
+        # if question.save
+        #   render json: { id: question.id }
+        # else
+        #   render(
+        #       json: { errors: question.errors.messages },
+        #       status: 422 #unprocessable entity HTTP Status code
+        #   )
+        # end
+        question.save!
+        # .save! => will throw error if this question model is invalid
+        # so it wont go to the next line here but the error handler in application controller(rescue_from)
+        render json: { id: question.id }
     end
 
     def index
@@ -46,14 +50,16 @@ class Api::V1::QuestionsController < Api::ApplicationController
     
     def update
         # based on the id of the user request, update that question with the given params
-        if @question.update(question_params)
-            render json: {id: @question.id }
-        else
-            render(
-                json: { errors: @question.errors.messages },
-                status: 422
-            )
-        end
+        # if @question.update(question_params)
+        #     render json: {id: @question.id }
+        # else
+        #     render(
+        #         json: { errors: @question.errors.messages },
+        #         status: 422
+        #     )
+        # end
+        @question.update(question_params)
+        render json: {id: @question.id }
     end
 
     def destroy

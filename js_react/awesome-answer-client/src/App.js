@@ -14,6 +14,7 @@ import AuthRoute from './components/AuthRoute';
 import SignUpPage from './components/SignUpPage';
 import UseStateHook from './components/UseStateHook';
 import UseEffectHook from './components/UseEffectHook';
+import NotFoundPage from './components/NotFoundPage'
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -38,7 +39,7 @@ export default function App() {
     return User.current().then(user => {
       //This is the safe navigation operator
       //similar to user && user.id (user&.id)
-      if (user?.id){
+      if (user?.id) {
         setUser(user)
       }
     })
@@ -53,23 +54,24 @@ export default function App() {
   //with the props passed to it. "routeProps" represents all the routing props
   //Make sure to pass them to the component as well
 
-    return(
-      <BrowserRouter>
-        <NavBar currentUser={user} onSignOut={onSignOut} clocksCount={clocksCount}/>
-        <Switch>
-          <Route exact path='/sign_in'
-          render={(routeProps) => <SignInPage {...routeProps } onSignIn={getCurrentUser} />}
-          />
-          <Route exact path='/sign_up' 
-          render={(routeProps) => <SignUpPage {...routeProps} onSignUp={getCurrentUser} />}/>
-          <Route exact path='/questions' component={QuestionIndexPage}/>
-          <AuthRoute isAuthenticated={!!user} exact path='/questions/new' component={NewQuestionPage}></AuthRoute>
-          <Route exact path='/questions/:id' component={QuestionShowPage} />
-          <Route path='/use_state' component={UseStateHook} />
-          <Route path='/use_effect' component={UseEffectHook} />
-        </Switch>
-      </BrowserRouter>
-    )
+  return (
+    <BrowserRouter>
+      <NavBar currentUser={user} onSignOut={onSignOut} clocksCount={clocksCount} />
+      <Switch>
+        <Route exact path='/sign_in'
+          render={(routeProps) => <SignInPage {...routeProps} onSignIn={getCurrentUser} />}
+        />
+        <Route exact path='/sign_up'
+          render={(routeProps) => <SignUpPage {...routeProps} onSignUp={getCurrentUser} />} />
+        <Route exact path='/questions' component={QuestionIndexPage} />
+        <AuthRoute isAuthenticated={!!user} exact path='/questions/new' component={NewQuestionPage}></AuthRoute>
+        <Route exact path='/questions/:id' component={QuestionShowPage} />
+        <Route path='/use_state' component={UseStateHook} />
+        <Route path='/use_effect' component={UseEffectHook} />
+        <Route component={NotFoundPage} />
+      </Switch>
+    </BrowserRouter>
+  )
 }
 
 // export default App;
