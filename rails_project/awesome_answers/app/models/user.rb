@@ -1,4 +1,10 @@
 class User < ApplicationRecord
+    #We are stating that we are converting the address to geocode
+    geocoded_by :address
+    #when a user saves an address, it will automatically convert to latitude and longitude as well
+    after_validation :geocode
+    #and then will automatically be saved as such as well
+
     has_secure_password
     # provide 2 attributes here: password, password_confimation
     # add a validation for password field
