@@ -13,13 +13,13 @@ handler = Gmaps.build('Google');
 handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
   markers = handler.addMarkers([
     {
-      "lat": 48.8584,
-      "lng": 2.2945,
+      "lat": <%=@user.latitude %>,
+      "lng": <%= @user.longitude %>,
       "picture": {
         "width":  32,
         "height": 32
       },
-      "infowindow": "Any message!"
+      "infowindow": "<%= @user.full_name %>'s location"
     }
   ]);
   handler.bounds.extendWith(markers);
