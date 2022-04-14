@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import Header from './components/Header'
+import Header from './components/Header';
+import PokemonList from './components/PokemonList';
 
 //To create this app:
 // $ npm i -g expo-cli
@@ -26,14 +27,15 @@ export default function App() {
     .then(res => res.json())
     .then(payload => {
       console.log(payload);
+      setPokemonList(payload.results);
     })
   }, [])
-  
+
   return (
     <View style={styles.container}>
       <Header/>
       <View style={styles.body}>
-        <Text>Hello world</Text>
+        <PokemonList list={pokemonList}/>
       </View>
       <StatusBar style="auto" />
     </View>
