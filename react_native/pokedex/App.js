@@ -5,6 +5,7 @@ import Header from './components/Header';
 import PokemonList from './components/PokemonList';
 import { NavigationContainer } from '@react-navigation/native'; //this is necessary for navigation
 import { createStackNavigator } from '@react-navigation/stack'; //this is necessary for navigation
+import PokemonDetails from './components/PokemonDetails';
 
 // -----To create this app:---->
 // $ npm i -g expo-cli
@@ -64,15 +65,19 @@ export default function App() {
         <Stack.Navigator
           screenOptions={
             {
-              headerShown: false
+              headerShown: true //you can toggle this to have a heading or not, as well as a return to previous page
             }
           }
           >
           <Stack.Screen
           name="Pokemon List"
-          children={()=>{
-            return <PokemonList list={pokemonList}/>
+          children={({ navigation })=>{
+            return <PokemonList list={pokemonList} navigation={navigation}/>
           }}
+          />
+          <Stack.Screen 
+          name="Pokemon Details"
+          component={PokemonDetails}
           />
         </Stack.Navigator>
       </View>

@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableHighlight  } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableHighlight } from 'react-native';
 
-function PokemonList({list}){
+function PokemonList({list, navigation}){
     return(
         <ScrollView>
             {
@@ -10,7 +10,10 @@ function PokemonList({list}){
                         <TouchableHighlight
                         key={i}
                         underlayColor='lightblue'
-                        onPress={(event)=>{console.log(event)}}
+                        onPress={(event)=>{
+                            // console.log(event)
+                            navigation.navigate("Pokemon Details", {pokemon})
+                        }}
                         >
                             <View style={styles.pokemon}>
                                 <Text>{pokemon.name}</Text>
@@ -29,9 +32,8 @@ const styles = StyleSheet.create({
         borderBottomColor: 'grey',
         height: 50,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
     }
-})
+}) 
 
 export default PokemonList;
-
