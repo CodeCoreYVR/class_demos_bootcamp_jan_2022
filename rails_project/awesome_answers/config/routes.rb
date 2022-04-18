@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # get 'callbacks/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -131,4 +132,9 @@ Rails.application.routes.draw do
     # This via argument is required and is used to match all the possible http methods => e.g. get, post, patch....
     # via: [:get, :post]
   end
+
+  #OmniAuth Routes
+  get "/auth/github", as: :sign_in_with_github
+  get "/auth/:provider/callback", to: "callbacks#index"
+  #:provider will allow us to use the same controller and action for different authentication systems such as github, faceboook, twitter, etc
 end

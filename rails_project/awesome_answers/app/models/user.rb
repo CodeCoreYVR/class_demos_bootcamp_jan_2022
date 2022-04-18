@@ -1,4 +1,10 @@
 class User < ApplicationRecord
+    #We are stating that we are converting the address to geocode
+    geocoded_by :address
+    #when a user saves an address, it will automatically convert to latitude and longitude as well
+    after_validation :geocode
+    #and then will automatically be saved as such as well
+
     has_secure_password
     # provide 2 attributes here: password, password_confimation
     # add a validation for password field
@@ -32,4 +38,32 @@ class User < ApplicationRecord
     def full_name
         self.first_name + " " + self.last_name
     end
+
+    #OmniAuth User setup
+    VALID_EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+    validates :email, presence: true, uniqueness: true, format: VALID_EMAIL_REGEX, unless: :from_oath?
+
+    def from_oath?
+        uid.present? && provider.present?
+    end
+
+    def self.create_from_oauth(oauth_data)
+        name = oauth_data["info"]["name"]&.split || oauth_data["info"]["nickname"]
+        self.create(
+            first_name: name[0],
+            last_name: name[1],
+            uid: oauth_data["uid"],
+            provider: oauth_data["provider"],
+            oauth_raw_data: oauth_data,
+            password: SecureRandom.hex(32)
+        )
+    end
+
+    def self.find_by_oauth(oauth_data)
+        self.find_by( 
+            uid: oauth_data["uid"],
+            provider: oauth_data["provider"]
+        )
+    end
+
 end
