@@ -77,15 +77,12 @@ gem 'active_model_serializers'
 
 gem 'rack-cors'
 
-<<<<<<< HEAD
 gem 'stripe'
-=======
 gem 'omniauth-github', '~> 1.4'
 
 gem 'geocoder'
 gem 'gmaps4rails'
 gem 'underscore-rails', '~> 1.8', '>= 1.8.3'
->>>>>>> bf2bdeaa5b25536c725d2b72eb029581afb8bd5b
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
