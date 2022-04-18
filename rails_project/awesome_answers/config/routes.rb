@@ -118,6 +118,7 @@ Rails.application.routes.draw do
         # get('users/current', {to: 'users#current'})
         get :current, on: :collection #api/v1/users/current
       end
+      resources :gifts, only: [:create]
     end
 
     #namespace :v2 do
