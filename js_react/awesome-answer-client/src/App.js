@@ -14,7 +14,8 @@ import AuthRoute from './components/AuthRoute';
 import SignUpPage from './components/SignUpPage';
 import UseStateHook from './components/UseStateHook';
 import UseEffectHook from './components/UseEffectHook';
-import NotFoundPage from './components/NotFoundPage'
+import NotFoundPage from './components/NotFoundPage';
+import GiftPage from './components/GiftPage'
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -68,6 +69,7 @@ export default function App() {
         <Route exact path='/questions/:id' component={QuestionShowPage} />
         <Route path='/use_state' component={UseStateHook} />
         <Route path='/use_effect' component={UseEffectHook} />
+        <Route path='/gift/:id' component={GiftPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </BrowserRouter>

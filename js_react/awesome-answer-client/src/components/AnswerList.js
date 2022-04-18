@@ -9,15 +9,16 @@ const AnswerList = (props) => {
             <ul>
                 {
                     answers ?
-                    answers.map((e, i) => {
-                        return <AnswerDetails key={i} body={e.body}
-                            author_name={e.author_name}
-                            created_at={e.created_at}
-                            deleteTheAnswer={() => props.deleteTheAnswer(e.id)}
-                        />
-                    })
-                    :
-                    null
+                        answers.map((e, i) => {
+                            return <AnswerDetails key={i} body={e.body}
+                                author_name={e.author_name}
+                                created_at={e.created_at}
+                                id={e.id}
+                                deleteTheAnswer={() => props.deleteTheAnswer(e.id)}
+                            />
+                        })
+                        :
+                        null
                 }
             </ul>
         </div>

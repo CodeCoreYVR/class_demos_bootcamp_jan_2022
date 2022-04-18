@@ -52,24 +52,24 @@ export const Session = {
             return res.json()
         })
     },
-    destroy(){
-       return fetch(`${baseUrl}/session`, {
-           method: 'DELETE',
-           credentials: 'include',
-       }).then(res => res.json())
+    destroy() {
+        return fetch(`${baseUrl}/session`, {
+            method: 'DELETE',
+            credentials: 'include',
+        }).then(res => res.json())
     }
 
 }
 
 export const User = {
-    current(){
+    current() {
         return fetch(`${baseUrl}/users/current`, {
             credentials: "include"
         }).then(res => {
             return res.json()
         })
     },
-    create(params){
+    create(params) {
         return fetch(`${baseUrl}/users`, {
             method: 'POST',
             credentials: 'include',
@@ -82,3 +82,15 @@ export const User = {
 
 }
 
+export const Gift = {
+    create(params) {
+        return fetch(`${baseUrl}/gifts`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "include",
+            body: JSON.stringify(params)
+        }).then(res => res.json())
+    }
+}

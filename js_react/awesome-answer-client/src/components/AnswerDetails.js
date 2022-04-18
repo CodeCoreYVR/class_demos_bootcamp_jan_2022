@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 const AnswerDetails = (props) => {
     return (
         <div>
@@ -14,6 +15,7 @@ const AnswerDetails = (props) => {
                 then you can use React.Fragment or <></>
             */}
             <button onClick={props.deleteTheAnswer}>Delete</button>
+            <Link to={`/gift/${props.id}`} >Gift this user</Link>
         </div>
     )
 }
